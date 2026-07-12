@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitTasks - GitHub to Google Tasks</title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <h1>📋 GitTasks</h1>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-item">
+                        <span id="userEmail" class="user-email">Loading...</span>
+                    </div>
+                    <div class="navbar-item">
+                        <span class="role-badge role-free" id="roleBadge">--</span>
+                    </div>
+                    <div class="navbar-item">
+                        <button id="logoutBtn" class="btn btn-logout">Logout</button>
+                    </div>
+                    <div class="navbar-item">
+                        <a href="/auth/github/login" class="btn btn-primary">Link GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Container -->
+        <div class="container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#repos" onclick="showSection('repos')" class="nav-link active">Repositories</a></li>
+                        <li><a href="#milestones" onclick="showSection('milestones')" class="nav-link">Milestones</a></li>
+                        <li><a href="#tasks" onclick="showSection('tasks')" class="nav-link">Create Task</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Permissions</h3>
+                    <ul class="permissions-list" id="permissionsList">
+                        <li>Loading permissions...</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="https://github.com" target="_blank">GitHub</a></li>
+                        <li><a href="https://casbin.org/editor" target="_blank">Casbin Editor</a></li>
+                        <li><a href="https://tasks.google.com/tasks/" target="_blank">Google Tasks Web</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Repositories Section -->
+                <section id="repos" class="content-section active">
+                    <div class="section-header">
+                        <h2>GitHub Repositories</h2>
+                        <button id="refreshRepos" class="btn btn-primary">Refresh</button>
+                    </div>
+                    <div id="reposList" class="repos-list loading">
+                        <p>Loading repositories...</p>
+                    </div>
+                </section>
+
+                <!-- Milestones Section -->
+                <section id="milestones" class="content-section">
+                    <div class="section-header">
+                        <h2>Milestones</h2>
+                    </div>
+                    <div class="milestone-filters">
+                        <select id="repoSelect" onchange="loadMilestones()" class="input-field">
+                            <option value="">Select a repository...</option>
+                        </select>
+                        <select id="stateFilter" onchange="loadMilestones()" class="input-field">
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                    <div id="milestonesList" class="milestones-list">
+                        <p class="placeholder">Select a repository to view milestones</p>
+                    </div>
+                </section>
+
+                <!-- Create Task Section -->
+                <section id="tasks" class="content-section">
+                    <div class="section-header">
+                        <h2>Create Task from Milestone</h2>
+                    </div>
+                    <form id="taskForm" class="form">
+                        <div class="form-group">
+                            <label for="taskRepo">Repository</label>
+                            <select id="taskRepo" required class="input-field">
+                                <option value="">Select a repository...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskMilestone">Milestone</label>
+                            <select id="taskMilestone" required class="input-field">
+                                <option value="">Select a milestone...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="taskListGroup" style="display: none;">
+                            <label for="taskListName">Task List Name (premium only)</label>
+                            <input type="text" id="taskListName" placeholder="Enter custom list name" class="input-field" />
+                            <small>Premium users can create and use custom task lists. Leave empty to use default list.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create Task</button>
+                        </div>
+                    </form>
+
+                    <div id="taskResult" class="task-result" style="display: none;"></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 GitTasks - GitHub to Google Tasks Converter | RBAC with Casbin</p>
+        </footer>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
