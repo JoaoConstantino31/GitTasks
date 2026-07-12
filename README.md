@@ -1,5 +1,3 @@
-GitTasks
-
 GitTasks is a web application that integrates GitHub Milestones with Google Tasks, allowing authenticated users to create Google Tasks directly from GitHub project milestones.
 
 The application demonstrates the integration of multiple web technologies, authentication protocols, access control mechanisms, and external REST APIs without relying on official SDKs.
